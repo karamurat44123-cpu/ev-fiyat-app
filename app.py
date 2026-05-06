@@ -24,7 +24,7 @@ hisseler = [
     "TOASO.IS"
 ]
 
-hisse = st.text_input("Hisse kodu gir (örnek: THYAO.IS)", "THYAO.IS")
+hisse = st.selectbox("Takip etmek istediğin hisseyi seç:", hisseler)
 
 st.subheader("🔥 Trend Hisseler")
 
