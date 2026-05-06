@@ -112,6 +112,9 @@ if son_rsi < 30:
 elif son_rsi > 70:
     puan -= 2
 
+slope, intercept, r, p, std = linregress(x, y)
+tahmin = intercept + slope * (len(veri) + 1)
+
 # AI tahmini kontrol
 if tahmin > son_fiyat:
     puan += 2
