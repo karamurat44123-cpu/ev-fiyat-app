@@ -49,6 +49,6 @@ fig.add_trace(
         )
     )
 
-    st.plotly_chart(fig)
+st.plotly_chart(fig)
 
 
