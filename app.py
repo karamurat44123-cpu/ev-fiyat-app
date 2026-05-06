@@ -40,7 +40,7 @@ fig.update_layout(
     template="plotly_dark"
 )
 
-    fig.add_trace(
+fig.add_trace(
         go.Scatter(
             x=veri.index,
             y=veri["Close"].squeeze(),
