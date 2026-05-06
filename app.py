@@ -34,5 +34,4 @@ else:
 
     st.plotly_chart(fig)
 
-else:
-    st.error("Hisse bulunamadı")
+
