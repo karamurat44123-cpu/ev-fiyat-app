@@ -50,6 +50,39 @@ tahmin = intercept + slope * (len(veri) + 1)
 
 st.info(f"Yapay Zeka Tahmini (Yarın): {round(tahmin,2)} TL")
 
+# Güven skoru hesaplama
+guven = 50
+
+if son_fiyat > ma20.iloc[-1].iloc[0]:
+    guven += 15
+
+if son_rsi < 30:
+    guven += 20
+
+elif son_rsi > 70:
+    guven -= 20
+
+# Trend analizi
+if tahmin > son_fiyat:
+    guven += 15
+else:
+    guven -= 15
+
+# Limitler
+guven = max(0, min(100, guven))
+
+# Risk seviyesi
+if guven >= 70:
+    risk = "Düşük Risk"
+elif guven >= 50:
+    risk = "Orta Risk"
+else:
+    risk = "Yüksek Risk"
+
+st.success(f"Yükseliş İhtimali: %{guven}")
+
+st.warning(f"Risk Seviyesi: {risk}")
+
 fig = go.Figure()
 
 fig.update_layout(
