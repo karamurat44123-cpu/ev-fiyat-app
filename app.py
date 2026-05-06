@@ -83,6 +83,21 @@ st.success(f"Yükseliş İhtimali: %{guven}")
 
 st.warning(f"Risk Seviyesi: {risk}")
 
+# MACD hesaplama
+ema12 = veri["Close"].ewm(span=12).mean()
+ema26 = veri["Close"].ewm(span=26).mean()
+
+macd = ema12 - ema26
+signal = macd.ewm(span=9).mean()
+
+macd_son = macd.iloc[-1].iloc[0]
+signal_son = signal.iloc[-1].iloc[0]
+
+if macd_son > signal_son:
+    st.success("MACD: YÜKSELİŞ TRENDİ")
+else:
+    st.error("MACD: DÜŞÜŞ TRENDİ")
+
 fig = go.Figure()
 
 fig.update_layout(
