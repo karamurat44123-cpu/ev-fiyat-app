@@ -25,6 +25,25 @@ else:
     x = list(range(len(veri)))
 y = veri["Close"].squeeze().values
 
+# RSI benzeri momentum hesabı
+degisim = veri["Close"].diff()
+
+yukselen = degisim.where(degisim > 0, 0).rolling(14).mean()
+dusen = (-degisim.where(degisim < 0, 0)).rolling(14).mean()
+
+rs = yukselen / dusen
+rsi = 100 - (100 / (1 + rs))
+
+son_rsi = rsi.iloc[-1].iloc[0]
+
+# Trend gücü
+if son_rsi > 70:
+    st.warning(f"RSI: {round(son_rsi,2)} → Aşırı Alım")
+elif son_rsi < 30:
+    st.success(f"RSI: {round(son_rsi,2)} → Aşırı Satım")
+else:
+    st.info(f"RSI: {round(son_rsi,2)} → Normal Bölge")
+
 slope, intercept, r, p, std = linregress(x, y)
 
 tahmin = intercept + slope * (len(veri) + 1)
