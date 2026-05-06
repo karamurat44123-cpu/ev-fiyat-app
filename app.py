@@ -22,6 +22,15 @@ if son_fiyat > ma20.iloc[-1].iloc[0]:
 else:
     st.error("SAT SİNYALİ")
 
+    x = list(range(len(veri)))
+y = veri["Close"].squeeze().values
+
+slope, intercept, r, p, std = linregress(x, y)
+
+tahmin = intercept + slope * (len(veri) + 1)
+
+st.info(f"Yapay Zeka Tahmini (Yarın): {round(tahmin,2)} TL")
+
     fig = go.Figure()
 
     fig.update_layout(
