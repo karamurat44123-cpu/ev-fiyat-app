@@ -26,6 +26,54 @@ hisseler = [
 
 hisse = st.text_input("Hisse kodu gir (örnek: THYAO.IS)", "THYAO.IS")
 
+st.subheader("🔥 Trend Hisseler")
+
+for hisse_kodu in hisseler:
+
+    try:
+        veri_tarama = yf.download(hisse_kodu, period="1mo")
+
+        if not veri_tarama.empty:
+
+            son = veri_tarama["Close"].iloc[-1].iloc[0]
+
+            ma20_tarama = veri_tarama["Close"].rolling(20).mean()
+
+            rsi_degisim = veri_tarama["Close"].diff()
+
+            yukselen = rsi_degisim.where(rsi_degisim > 0, 0).rolling(14).mean()
+
+            dusen = (-rsi_degisim.where(rsi_degisim < 0, 0)).rolling(14).mean()
+
+            rs = yukselen / dusen
+
+            rsi = 100 - (100 / (1 + rs))
+
+            son_rsi = rsi.iloc[-1].iloc[0]
+
+            puan = 50
+
+            if son > ma20_tarama.iloc[-1].iloc[0]:
+                puan += 20
+
+            if son_rsi < 30:
+                puan += 20
+
+            elif son_rsi > 70:
+                puan -= 20
+
+            if puan >= 70:
+                st.success(f"{hisse_kodu} → Güçlü Trend (%{puan})")
+
+            elif puan >= 55:
+                st.info(f"{hisse_kodu} → İzlenebilir (%{puan})")
+
+            else:
+                st.error(f"{hisse_kodu} → Riskli (%{puan})")
+
+    except:
+        pass
+
 veri = yf.download(hisse, period="1mo")
 
 if not veri.empty:
