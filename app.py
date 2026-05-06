@@ -33,7 +33,7 @@ st.info(f"Yapay Zeka Tahmini (Yarın): {round(tahmin,2)} TL")
 
 fig = go.Figure()
 
-    fig.update_layout(
+fig.update_layout(
     title=hisse + " Fiyat Grafiği",
     xaxis_title="Tarih",
     yaxis_title="Fiyat",
