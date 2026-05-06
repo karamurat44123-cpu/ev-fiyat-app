@@ -92,12 +92,32 @@ signal = macd.ewm(span=9).mean()
 son_macd = macd.iloc[-1].iloc[0]
 son_signal = signal.iloc[-1].iloc[0]
 
-if son_fiyat > ma20.iloc[-1].iloc[0] and son_macd > son_signal:
-    st.success("GÜÇLÜ AL SİNYALİ")
-elif son_fiyat < ma20.iloc[-1].iloc[0] and son_macd < son_signal:
-    st.error("GÜÇLÜ SAT SİNYALİ")
+puan = 0
+
+# MA20 kontrol
+if son_fiyat > ma20.iloc[-1].iloc[0]:
+    puan += 2
 else:
-    st.warning("BEKLE SİNYALİ")
+    puan -= 2
+
+# MACD kontrol
+if son_macd > son_signal:
+    puan += 2
+else:
+    puan -= 2
+
+# RSI kontrol
+if son_rsi < 30:
+    puan += 2
+elif son_rsi > 70:
+    puan -= 2
+
+# AI tahmini kontrol
+if tahmin > son_fiyat:
+    puan += 2
+else:
+    puan -= 2
+
 
 x = list(range(len(veri)))
 y = veri["Close"].squeeze().values
@@ -174,6 +194,18 @@ if macd_son > signal_son:
     st.success("MACD: YÜKSELİŞ TRENDİ")
 else:
     st.error("MACD: DÜŞÜŞ TRENDİ")
+
+# Nihai karar
+if puan >= 5:
+    st.success("ÇOK GÜÇLÜ AL SİNYALİ")
+elif puan >= 2:
+    st.success("AL SİNYALİ")
+elif puan <= -5:
+    st.error("ÇOK GÜÇLÜ SAT SİNYALİ")
+elif puan <= -2:
+    st.error("SAT SİNYALİ")
+else:
+    st.warning("BEKLE / KARARSIZ BÖLGE")
 
 fig = go.Figure()
 
