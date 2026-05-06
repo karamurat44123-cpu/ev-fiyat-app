@@ -12,7 +12,7 @@ if not veri.empty:
 
     son_fiyat = veri["Close"].iloc[-1]
 
-    st.subheader(f"Güncel Fiyat: {round(float(son_fiyat),2)} TL")
+    st.subheader(f"Güncel Fiyat: {round(son_fiyat,2)} TL")
 
     fig = go.Figure()
 
