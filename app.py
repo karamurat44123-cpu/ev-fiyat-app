@@ -112,6 +112,9 @@ if son_rsi < 30:
 elif son_rsi > 70:
     puan -= 2
 
+x = list(range(len(veri)))
+y = veri["Close"].squeeze().values
+
 slope, intercept, r, p, std = linregress(x, y)
 tahmin = intercept + slope * (len(veri) + 1)
 
@@ -120,10 +123,6 @@ if tahmin > son_fiyat:
     puan += 2
 else:
     puan -= 2
-
-
-x = list(range(len(veri)))
-y = veri["Close"].squeeze().values
 
 # RSI benzeri momentum hesabı
 degisim = veri["Close"].diff()
