@@ -5,6 +5,25 @@ from scipy.stats import linregress
 
 st.title("📈 BIST Hisse Takip")
 
+# Takip listesi
+hisseler = [
+    "THYAO.IS",
+    "ASELS.IS",
+    "KCHOL.IS",
+    "SISE.IS",
+    "TUPRS.IS",
+    "BIMAS.IS",
+    "EREGL.IS",
+    "AKBNK.IS",
+    "GARAN.IS",
+    "YKBNK.IS",
+    "PETKM.IS",
+    "SASA.IS",
+    "HEKTS.IS",
+    "FROTO.IS",
+    "TOASO.IS"
+]
+
 hisse = st.text_input("Hisse kodu gir (örnek: THYAO.IS)", "THYAO.IS")
 
 veri = yf.download(hisse, period="1mo")
