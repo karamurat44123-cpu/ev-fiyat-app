@@ -84,6 +84,21 @@ if not veri.empty:
 
     ma20 = veri["Close"].rolling(20).mean()
 
+macd_kisa = veri["Close"].ewm(span=12).mean()
+macd_uzun = veri["Close"].ewm(span=26).mean()
+macd = macd_kisa - macd_uzun
+signal = macd.ewm(span=9).mean()
+
+son_macd = macd.iloc[-1].iloc[0]
+son_signal = signal.iloc[-1].iloc[0]
+
+if son_fiyat > ma20.iloc[-1].iloc[0] and son_macd > son_signal:
+    st.success("GÜÇLÜ AL SİNYALİ")
+elif son_fiyat < ma20.iloc[-1].iloc[0] and son_macd < son_signal:
+    st.error("GÜÇLÜ SAT SİNYALİ")
+else:
+    st.warning("BEKLE SİNYALİ")
+
 x = list(range(len(veri)))
 y = veri["Close"].squeeze().values
 
