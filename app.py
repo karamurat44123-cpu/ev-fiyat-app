@@ -10,7 +10,7 @@ veri = yf.download(hisse, period="1mo")
 
 if not veri.empty:
 
-    son_fiyat = veri["Close"].iloc[-1]
+    son_fiyat = veri["Close"].iloc[-1].iloc[0]
 
     st.subheader(f"Güncel Fiyat: {round(son_fiyat,2)} TL")
 
