@@ -23,6 +23,13 @@ else:
 
     fig = go.Figure()
 
+    fig.update_layout(
+    title=hisse + " Fiyat Grafiği",
+    xaxis_title="Tarih",
+    yaxis_title="Fiyat",
+    template="plotly_dark"
+)
+
     fig.add_trace(
         go.Scatter(
             x=veri.index,
