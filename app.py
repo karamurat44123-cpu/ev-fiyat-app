@@ -1,16 +1,31 @@
 import streamlit as st
-from sklearn.linear_model import LinearRegression
+import yfinance as yf
+import plotly.graph_objects as go
 
-st.title("🏠 Ev Fiyat Tahmini")
+st.title("📈 BIST Hisse Takip")
 
-X = [[50], [60], [70], [80]]
-y = [150000, 180000, 210000, 240000]
+hisse = st.text_input("Hisse kodu gir (örnek: THYAO.IS)", "THYAO.IS")
 
-model = LinearRegression()
-model.fit(X, y)
+veri = yf.download(hisse, period="1mo")
 
-metrekare = st.number_input("Metrekare gir:", min_value=0)
+if not veri.empty:
 
-if st.button("Tahmin Et"):
-    sonuc = model.predict([[metrekare]])
-    st.success("Tahmini fiyat: " + str(int(sonuc[0])) + " TL")
+    son_fiyat = veri["Close"].iloc[-1]
+
+    st.subheader(f"Güncel Fiyat: {round(float(son_fiyat),2)} TL")
+
+    fig = go.Figure()
+
+    fig.add_trace(
+        go.Scatter(
+            x=veri.index,
+            y=veri["Close"],
+            mode="lines",
+            name="Fiyat"
+        )
+    )
+
+    st.plotly_chart(fig)
+
+else:
+    st.error("Hisse bulunamadı")
