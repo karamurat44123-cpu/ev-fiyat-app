@@ -16,7 +16,7 @@ if not veri.empty:
 
     ma20 = veri["Close"].rolling(20).mean()
 
-if son_fiyat > ma20.iloc[-1]:
+if son_fiyat > ma20.iloc[-1].iloc[0]:
     st.success("AL SİNYALİ")
 else:
     st.error("SAT SİNYALİ")
