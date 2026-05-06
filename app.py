@@ -14,6 +14,13 @@ if not veri.empty:
 
     st.subheader(f"Güncel Fiyat: {round(son_fiyat,2)} TL")
 
+    ma20 = veri["Close"].rolling(20).mean()
+
+if son_fiyat > ma20.iloc[-1]:
+    st.success("AL SİNYALİ")
+else:
+    st.error("SAT SİNYALİ")
+
     fig = go.Figure()
 
     fig.add_trace(
