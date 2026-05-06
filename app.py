@@ -89,7 +89,7 @@ if son_fiyat > ma20.iloc[-1].iloc[0]:
 else:
     st.error("SAT SİNYALİ")
 
-    x = list(range(len(veri)))
+x = list(range(len(veri)))
 y = veri["Close"].squeeze().values
 
 # RSI benzeri momentum hesabı
