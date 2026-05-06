@@ -33,7 +33,7 @@ else:
     fig.add_trace(
         go.Scatter(
             x=veri.index,
-            y=veri["Close"],
+            y=veri["Close"].squeeze(),
             mode="lines",
             name="Fiyat"
         )
