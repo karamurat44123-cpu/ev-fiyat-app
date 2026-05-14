@@ -8,6 +8,7 @@ st.title("📈 BIST Hisse Takip")
 # Takip listesi
 hisseler = [
     "THYAO.IS",
+    "ASTOR.IS",
     "ASELS.IS",
     "KCHOL.IS",
     "SISE.IS",
