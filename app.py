@@ -27,6 +27,11 @@ hisseler = [
 
 hisse = st.selectbox("Takip etmek istediğin hisseyi seç:", hisseler)
 
+tahmin_gunu = st.selectbox(
+    "Tahmin süresi seç:",
+    [1, 2, 3, 5, 7]
+)
+
 st.subheader("🔥 Trend Hisseler")
 
 for hisse_kodu in hisseler:
@@ -146,9 +151,9 @@ else:
 
 slope, intercept, r, p, std = linregress(x, y)
 
-tahmin = intercept + slope * (len(veri) + 1)
+tahmin = intercept + slope * (len(veri) + tahmin_gunu)
 
-st.info(f"Yapay Zeka Tahmini (Yarın): {round(tahmin,2)} TL")
+st.info(f"Yapay Zeka Tahmini ({tahmin_gunu} Gün Sonra): {round(tahmin,2)} TL")
 
 # Güven skoru hesaplama
 guven = 50
