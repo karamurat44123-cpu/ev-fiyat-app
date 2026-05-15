@@ -4,6 +4,7 @@ import plotly.graph_objects as go
 from scipy.stats import linregress
 from sklearn.ensemble import RandomForestRegressor
 import numpy as np
+from pandas.tseries.offsets import BDay
 
 st.title("📈 BIST Hisse Takip")
 
