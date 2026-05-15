@@ -165,11 +165,10 @@ elif son_rsi < 30:
 else:
     st.info(f"RSI: {round(son_rsi,2)} → Normal Bölge")
 
-slope, intercept, r, p, std = linregress(x, y)
 
-tahmin = intercept + slope * (len(veri) + tahmin_gunu)
-
-st.info(f"Yapay Zeka Tahmini ({tahmin_gunu} Gün Sonra): {round(tahmin,2)} TL")
+st.info(
+    f"AI Tahmini ({gelecek_tarih.strftime('%d-%m-%Y')}): {round(tahmin,2)} TL"
+)
 
 # Güven skoru hesaplama
 guven = 50
