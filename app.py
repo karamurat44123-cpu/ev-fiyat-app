@@ -136,6 +136,8 @@ model.fit(X, Y)
 
 gelecek_gun = np.array([[len(veri) + tahmin_gunu]])
 
+gelecek_tarih = veri.index[-1] + BDay(tahmin_gunu)
+
 tahmin = model.predict(gelecek_gun)[0]
 
 # AI tahmini kontrol
