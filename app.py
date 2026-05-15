@@ -2,6 +2,8 @@ import streamlit as st
 import yfinance as yf
 import plotly.graph_objects as go
 from scipy.stats import linregress
+from sklearn.ensemble import RandomForestRegressor
+import numpy as np
 
 st.title("📈 BIST Hisse Takip")
 
