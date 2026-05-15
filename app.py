@@ -123,8 +123,19 @@ elif son_rsi > 70:
 x = list(range(len(veri)))
 y = veri["Close"].squeeze().values
 
-slope, intercept, r, p, std = linregress(x, y)
-tahmin = intercept + slope * (len(veri) + 1)
+X = np.array(x).reshape(-1, 1)
+Y = np.array(y)
+
+model = RandomForestRegressor(
+    n_estimators=200,
+    random_state=42
+)
+
+model.fit(X, Y)
+
+gelecek_gun = np.array([[len(veri) + tahmin_gunu]])
+
+tahmin = model.predict(gelecek_gun)[0]
 
 # AI tahmini kontrol
 if tahmin > son_fiyat:
