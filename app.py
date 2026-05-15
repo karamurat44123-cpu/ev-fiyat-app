@@ -121,24 +121,30 @@ if son_rsi < 30:
 elif son_rsi > 70:
     puan -= 2
 
-x = list(range(len(veri)))
-y = veri["Close"].squeeze().values
+kapanis = veri["Close"].squeeze().values
 
-X = np.array(x).reshape(-1, 1)
-Y = np.array(y)
+X = []
+Y = []
+
+for i in range(10, len(kapanis) - tahmin_gunu):
+    X.append(kapanis[i-10:i])
+    Y.append(kapanis[i + tahmin_gunu])
+
+X = np.array(X)
+Y = np.array(Y)
 
 model = RandomForestRegressor(
-    n_estimators=200,
+    n_estimators=300,
     random_state=42
 )
 
 model.fit(X, Y)
 
-gelecek_gun = np.array([[len(veri) + tahmin_gunu]])
+son_10_gun = np.array([kapanis[-10:]])
+
+tahmin = model.predict(son_10_gun)[0]
 
 gelecek_tarih = veri.index[-1] + BDay(tahmin_gunu)
-
-tahmin = model.predict(gelecek_gun)[0]
 
 # AI tahmini kontrol
 if tahmin > son_fiyat:
